@@ -1,4 +1,4 @@
-package publicip
+package public
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func GetAddress(ifconfigURL string) (address string, err error) {
+func IPAddress(ifconfigURL string) (address string, err error) {
 
 	client := &http.Client{}
 

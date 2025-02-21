@@ -1,4 +1,4 @@
-module publicip
+module public
 
 go 1.23.6
 

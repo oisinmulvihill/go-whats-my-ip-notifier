@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"internal/public"
+	"internal/slack"
 )
 
 func main() {
@@ -27,7 +30,7 @@ func main() {
 	}
 	fmt.Printf("The current machine's hostname is '%s'\n", hostname)
 
-	if publicIPAddress, err = GetAddress(ifconfigURL); err != nil {
+	if publicIPAddress, err = public.IPAddress(ifconfigURL); err != nil {
 		fmt.Printf("client: could not get public IP address: %s\n", err)
 		os.Exit(1)
 	}
@@ -35,7 +38,7 @@ func main() {
 	fmt.Printf("Public IP address is: '%s'\n", publicIPAddress)
 	message := `The public IP address of ` + hostname + ` is: ` + publicIPAddress
 
-	if err = SendMessage(slackWebHookURL, hostname, message); err != nil {
+	if err = slack.SendMessage(slackWebHookURL, hostname, message); err != nil {
 		fmt.Printf("Failed to send slack a message: %s\n", err)
 		os.Exit(1)
 	}
