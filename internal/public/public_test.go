@@ -1,8 +1,9 @@
 package public
 
 import (
-	"internal/assert"
 	"testing"
+
+	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/assert"
 )
 
 func TestGetAddressOKCase(t *testing.T) {

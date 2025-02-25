@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"internal/public"
-	"internal/slack"
+	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/public"
+	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/slack"
 )
 
 func main() {
