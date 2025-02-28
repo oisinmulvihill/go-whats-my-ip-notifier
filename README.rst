@@ -27,3 +27,13 @@ STORAGE_FILE_PATH
 
 The file and path of the IP address tracking DB. This uses SQLite3 for this. By
 default, this will create a `storage.db` file in the current directory.
+
+
+Development
+-----------
+
+To run the tests, run the following command:
+
+::
+
+    go test ./...
