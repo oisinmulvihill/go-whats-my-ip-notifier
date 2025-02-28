@@ -7,6 +7,7 @@ import (
 	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/public"
 	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/settings"
 	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/slack"
+	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/storage"
 )
 
 func main() {
@@ -19,6 +20,13 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Create the ip logging db if it doesn't exist:
+	ipStore, err := storage.Init(config.StorageFilePath)
+	if err != nil {
+		fmt.Printf("client: could not create the ip logging db: %s\n", err)
+		os.Exit(1)
+	}
+
 	fmt.Printf("The current machine's hostname is '%s'\n", config.Hostname)
 
 	if publicIPAddress, err = public.IPAddress(config.IFConfigURL); err != nil {
@@ -27,6 +35,8 @@ func main() {
 	}
 
 	fmt.Printf("Public IP address is: '%s'\n", publicIPAddress)
+	ipStore.AddIPIfNotPresent(publicIPAddress)
+
 	message := `The public IP address of ` + config.Hostname + ` is: ` + publicIPAddress
 
 	if err = slack.SendMessage(config.SlackWebHookURL, config.Hostname, message); err != nil {

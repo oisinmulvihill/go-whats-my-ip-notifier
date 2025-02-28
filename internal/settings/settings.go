@@ -8,6 +8,7 @@ type configuration struct {
 	IFConfigURL     string
 	SlackWebHookURL string
 	Hostname        string
+	StorageFilePath string
 }
 
 func FromEnv() *configuration {
@@ -23,10 +24,16 @@ func FromEnv() *configuration {
 		hostname = "<unknown hostname>"
 	}
 
+	storageFilePath := os.Getenv("STORAGE_FILE_PATH")
+	if storageFilePath == "" {
+		storageFilePath = "storage.db"
+	}
+
 	settings := configuration{
 		IFConfigURL:     ifconfigURL,
 		SlackWebHookURL: slackWebHookURL,
 		Hostname:        hostname,
+		StorageFilePath: storageFilePath,
 	}
 
 	return &settings
