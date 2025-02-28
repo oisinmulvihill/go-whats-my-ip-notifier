@@ -28,7 +28,7 @@ func SendMessage(slackWebHookURL string, username string, message string) (err e
 	if err != nil {
 		return err
 	}
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		fmt.Printf("Slack API called failed with status code: %d\n", res.StatusCode)
 		return fmt.Errorf("failed to call slack webhook '%d'", res.StatusCode)
 	}
