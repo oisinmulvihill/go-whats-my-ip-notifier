@@ -7,7 +7,7 @@ import (
 	"github.com/oisinmulvihill/go-whats-my-ip-notifier/internal/assert"
 )
 
-func TestAddIPIfNotPresent(t *testing.T) {
+func TestCurrentAddressAndAddAddress(t *testing.T) {
 	var row *sql.Row
 	var err error
 	var count int
@@ -25,22 +25,16 @@ func TestAddIPIfNotPresent(t *testing.T) {
 	}
 	assert.Equal(t, count, 0)
 
+	var currentAddress string
+	currentAddress, err = storage.CurrentIP()
+	assert.Equal(t, err, nil)
+	assert.Equal(t, currentAddress, "")
+
 	// Add the IP address for the first time
-	err = storage.AddIPIfNotPresent("192.168.0.1")
-	assert.Equal(t, err, nil)
-	row = storage.db.QueryRow("SELECT COUNT(*) FROM ip_log")
-	if err = row.Scan(&count); err != nil {
-		t.Fatal(err)
-	}
-	assert.Equal(t, count, 1)
-
-	// Adding the same IP address should result is more than one entry
-	err = storage.AddIPIfNotPresent("192.168.0.1")
+	err = storage.AddAddress("192.168.0.1")
 	assert.Equal(t, err, nil)
 
-	row = storage.db.QueryRow("SELECT COUNT(*) FROM ip_log")
-	if err = row.Scan(&count); err != nil {
-		t.Fatal(err)
-	}
-	assert.Equal(t, count, 1)
+	currentAddress, err = storage.CurrentIP()
+	assert.Equal(t, err, nil)
+	assert.Equal(t, currentAddress, "192.168.0.1")
 }
