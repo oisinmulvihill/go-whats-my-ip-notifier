@@ -4,7 +4,7 @@ What's my IP
 This utility will track your *public* IP address changing. It will notify you
 on Slack when it changes.
 
-..contents::
+..contents:
 
 
 Build and run::
