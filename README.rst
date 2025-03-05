@@ -6,9 +6,14 @@ on Slack when it changes.
 
 ..contents::
 
-::
 
-    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/.../L... go run cmd/whatismyip/main.go
+Build and run::
+
+    # build
+    go build -o whats-my-ip cmd/whatsmyip/main.go
+
+    # run with correct webhook URL for your slack:
+    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/.../L... ./whats-my-ip
 
 
 Settings
