@@ -4,9 +4,13 @@ What's my IP
 This utility will track your *public* IP address changing. It will notify you
 on Slack when it changes.
 
+..contents::
+    :local:
+
 ::
 
     SLACK_WEBHOOK_URL=https://hooks.slack.com/services/.../L... go run cmd/whatismyip/main.go
+
 
 Settings
 --------
